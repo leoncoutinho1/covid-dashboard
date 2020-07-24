@@ -44,10 +44,80 @@
         </div>
         <div id='dashboard'>
             @component('components.card', [
-                'title' => 'Line Chart'
+                'title' => 'Novos casos confirmados / semana'
                 ])
                 @component('components.lineChart', [
-                    'countryDataset' => $countryDataset
+                    'dates' => $countryDataset['weekDates'],
+                    'values' => $countryDataset['weekConfirmedDaily'],
+                    'id' => 'weekConfirmedDaily',
+                    'label' => 'Novos casos confirmados',
+                    'bgColor' => 'rgb(205, 212, 228)',
+                    'borderColor' => 'rgb(145, 166, 180)'
+                ])
+                @endcomponent
+            @endcomponent
+            @component('components.card', [
+                'title' => 'Número de mortes / semana'
+                ])
+                @component('components.lineChart', [
+                    'dates' => $countryDataset['weekDates'],
+                    'values' => $countryDataset['weekDeathsDaily'],
+                    'id' => 'weekDeathsDaily',
+                    'label' => 'Número de mortes',
+                    'bgColor' => 'rgb(205, 212, 228)',
+                    'borderColor' => 'rgb(145, 166, 180)'
+                ])
+                @endcomponent
+            @endcomponent
+            @component('components.card', [
+                'title' => 'Total de casos confirmados / semana'
+                ])
+                @component('components.lineChart', [
+                    'dates' => $countryDataset['weekDates'],
+                    'values' => $countryDataset['weekConfirmedTotal'],
+                    'id' => 'weekConfirmedTotal',
+                    'label' => 'Total de casos confirmados',
+                    'bgColor' => 'rgb(205, 212, 228)',
+                    'borderColor' => 'rgb(145, 166, 180)'
+                ])
+                @endcomponent
+            @endcomponent
+            @component('components.card', [
+                'title' => 'Total de mortes / semana'
+                ])
+                @component('components.lineChart', [
+                    'dates' => $countryDataset['weekDates'],
+                    'values' => $countryDataset['weekDeathsTotal'],
+                    'id' => 'weekDeathsTotal',
+                    'label' => 'Total de mortes',
+                    'bgColor' => 'rgb(205, 212, 228)',
+                    'borderColor' => 'rgb(145, 166, 180)'
+                ])
+                @endcomponent
+            @endcomponent
+            @component('components.card', [
+                'title' => 'Total de casos confirmados / mês'
+                ])
+                @component('components.lineChart', [
+                    'dates' => $countryDataset['mounthDates'],
+                    'values' => $countryDataset['mounthConfirmed'],
+                    'id' => 'mounthConfirmed',
+                    'label' => 'Total de casos confirmados',
+                    'bgColor' => 'rgb(205, 212, 228)',
+                    'borderColor' => 'rgb(145, 166, 180)'
+                ])
+                @endcomponent
+            @endcomponent
+            @component('components.card', [
+                'title' => 'Total de mortes / mês'
+                ])
+                @component('components.lineChart', [
+                    'dates' => $countryDataset['mounthDates'],
+                    'values' => $countryDataset['mounthDeaths'],
+                    'id' => 'mounthDeaths',
+                    'label' => 'Total de mortes',
+                    'bgColor' => 'rgb(205, 212, 228)',
+                    'borderColor' => 'rgb(145, 166, 180)'
                 ])
                 @endcomponent
             @endcomponent

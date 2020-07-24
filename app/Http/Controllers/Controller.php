@@ -43,8 +43,9 @@ class Controller extends BaseController
             'weekDates' => [],
             'weekConfirmedTotal' => [],
             'weekConfirmedDaily' => [],
-            'weekDeaths' => [],
-            'mounthsDates' => [],
+            'weekDeathsTotal' => [],
+            'weekDeathsDaily' => [],
+            'mounthDates' => [],
             'mounthConfirmed' => [],
             'mounthDeaths' => []
         ];
@@ -62,11 +63,12 @@ class Controller extends BaseController
             array_unshift($countryDataset['weekDates'], $this::convertDate($data[$total - $i]->{'Date'}));
             array_unshift($countryDataset['weekConfirmedTotal'], $data[$total - $i]->{'Confirmed'});
             array_unshift($countryDataset['weekConfirmedDaily'], ($data[$total - $i]->{'Confirmed'} - $data[$total - $i - 1]->{'Confirmed'}));
-            array_unshift($countryDataset['weekDeaths'], $data[$total - $i]->{'Deaths'});
+            array_unshift($countryDataset['weekDeathsTotal'], $data[$total - $i]->{'Deaths'});
+            array_unshift($countryDataset['weekDeathsDaily'], ($data[$total - $i]->{'Deaths'} - $data[$total - $i - 1]->{'Deaths'}));
         }
 
         for($i = 0; $i <= 4; $i++) {
-            array_unshift($countryDataset['mounthsDates'], $this::convertDate($data[$total - ($i * 30)]->{'Date'}));
+            array_unshift($countryDataset['mounthDates'], $this::convertDate($data[$total - ($i * 30)]->{'Date'}));
             array_unshift($countryDataset['mounthConfirmed'], $data[$total - ($i * 30)]->{'Confirmed'});
             array_unshift($countryDataset['mounthDeaths'], $data[$total - ($i * 30)]->{'Deaths'});
         }
