@@ -1,0 +1,40 @@
+#header {
+    padding: 5px 5px;
+    background-color: rgb(51, 51, 51);
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+}
+
+#header__logo {
+    width: 3rem;
+    height: 3rem;
+    margin: auto 0;
+}
+
+#header__title {
+    display: flex;
+    font-size: .5rem;
+}
+
+#header__title img, #header__title h1 {
+    margin: auto 5px;
+}
+
+#header__menu {
+    width: 25rem;
+}
+
+#header__menu {
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto 0;
+}
+.header__menu__link {
+    font-size: 1rem;
+    text-decoration: none;
+    color: white;
+}

@@ -1,0 +1,8 @@
+#countries {
+    outline: none;
+    border: none;
+    background-color: rgb(132, 154, 194);
+    color: black;
+    font-size: .8rem;
+    margin: 5px;
+}
