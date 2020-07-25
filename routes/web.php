@@ -21,7 +21,9 @@ Route::get('/', ['uses' => 'Controller@principal']);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/country/{nome?}', ['uses' => 'Controller@principal'])->where('country', '[A-Za-z-]+');
+Route::get('/country/{country}/{pdf}', ['uses' => 'Controller@principal'])->where('country', '[A-Za-z-]+');
+
+Route::get('/country/{country?}', ['uses' => 'Controller@principal'])->where('country', '[A-Za-z-]+');
 
 /* Route::get('/', function () {
     return view('welcome');

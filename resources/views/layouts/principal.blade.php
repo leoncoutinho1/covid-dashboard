@@ -36,14 +36,14 @@
                 'title' => ($countryInfo->{'alpha2Code'}.' - '.$countryInfo->{'alpha3Code'}.' - '.$countryInfo->{'name'})
                 ])
                 @component('components.countryInfo', [
-                    'dayOne' => (isset($countryDataset) ? $countryDataset['dayOne'] : '-/-'),
+                    'dayOne' => (isset($dayOne) ? $dayOne : '-/-'),
                     'countryInfo' => $countryInfo,
                     'currentConfirmed' => $currentConfirmed,
                     'currentDeaths' => $currentDeaths
                 ])
                 @endcomponent
             @endcomponent
-            @if(isset($countryDataset))
+            @if(isset($dayOne))
                 @component('components.card', [
                     'title' => 'Informações adicionais'
                     ])
@@ -65,85 +65,17 @@
             @endif
         </div>
         <div class="dashboard">
-            @if(isset($countryDataset))
-                @component('components.card', [
-                    'title' => 'Novos casos confirmados / semana'
-                    ])
-                    @component('components.lineChart', [
-                        'dates' => $countryDataset['weekDates'],
-                        'values' => $countryDataset['weekConfirmedDaily'],
-                        'id' => 'weekConfirmedDaily',
-                        'label' => 'Novos casos confirmados',
-                        'bgColor' => 'rgb(205, 212, 228)',
-                        'borderColor' => 'rgb(145, 166, 180)'
-                    ])
+            @if(isset($dayOne))
+                @foreach($charts as $chart)
+                    @component('components.card', [
+                        'title' => $chart['title']
+                        ])
+                        @component('components.lineChart', [
+                            'chart' => $chart
+                        ])
+                        @endcomponent
                     @endcomponent
-                @endcomponent
-                @component('components.card', [
-                    'title' => 'Número de mortes / semana'
-                    ])
-                    @component('components.lineChart', [
-                        'dates' => $countryDataset['weekDates'],
-                        'values' => $countryDataset['weekDeathsDaily'],
-                        'id' => 'weekDeathsDaily',
-                        'label' => 'Número de mortes',
-                        'bgColor' => 'rgb(205, 212, 228)',
-                        'borderColor' => 'rgb(145, 166, 180)'
-                    ])
-                    @endcomponent
-                @endcomponent
-                @component('components.card', [
-                    'title' => 'Total de casos confirmados / semana'
-                    ])
-                    @component('components.lineChart', [
-                        'dates' => $countryDataset['weekDates'],
-                        'values' => $countryDataset['weekConfirmedTotal'],
-                        'id' => 'weekConfirmedTotal',
-                        'label' => 'Total de casos confirmados',
-                        'bgColor' => 'rgb(205, 212, 228)',
-                        'borderColor' => 'rgb(145, 166, 180)'
-                    ])
-                    @endcomponent
-                @endcomponent
-                @component('components.card', [
-                    'title' => 'Total de mortes / semana'
-                    ])
-                    @component('components.lineChart', [
-                        'dates' => $countryDataset['weekDates'],
-                        'values' => $countryDataset['weekDeathsTotal'],
-                        'id' => 'weekDeathsTotal',
-                        'label' => 'Total de mortes',
-                        'bgColor' => 'rgb(205, 212, 228)',
-                        'borderColor' => 'rgb(145, 166, 180)'
-                    ])
-                    @endcomponent
-                @endcomponent
-                @component('components.card', [
-                    'title' => 'Total de casos confirmados / mês'
-                    ])
-                    @component('components.lineChart', [
-                        'dates' => $countryDataset['mounthDates'],
-                        'values' => $countryDataset['mounthConfirmed'],
-                        'id' => 'mounthConfirmed',
-                        'label' => 'Total de casos confirmados',
-                        'bgColor' => 'rgb(205, 212, 228)',
-                        'borderColor' => 'rgb(145, 166, 180)'
-                    ])
-                    @endcomponent
-                @endcomponent
-                @component('components.card', [
-                    'title' => 'Total de mortes / mês'
-                    ])
-                    @component('components.lineChart', [
-                        'dates' => $countryDataset['mounthDates'],
-                        'values' => $countryDataset['mounthDeaths'],
-                        'id' => 'mounthDeaths',
-                        'label' => 'Total de mortes',
-                        'bgColor' => 'rgb(205, 212, 228)',
-                        'borderColor' => 'rgb(145, 166, 180)'
-                    ])
-                    @endcomponent
-                @endcomponent
+                @endforeach
             @else
                 <div id='noDataMessage'>
                     <p>A base não possui dados deste país referentes à COVID19.</p>
