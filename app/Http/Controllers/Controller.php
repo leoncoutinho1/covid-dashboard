@@ -6,10 +6,15 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function __construct() {
+        $this::middleware('auth');
+    }
 
     public function consult($url) {
         $curl = curl_init();
@@ -80,23 +85,34 @@ class Controller extends BaseController
         $title = 'Painel COVID-19';
         $countries = $this::consult("https://api.covid19api.com/countries");
         
-        if(isset($country)) {
-                        
-            $data = $this::consult("https://api.covid19api.com/total/country/$country");
-                                  
-            $index = array_search($country, array_column($countries, 'Slug'));
-            $iso2 = $countries[$index]->{'ISO2'};
-
-            $countryInfo = $this::consult("https://restcountries.eu/rest/v2/alpha/$iso2");
-            
-            $countryDataset = $this::getCountryDataset($data);
+        if(!isset($country)) {
+            $country = 'brazil';
         }
+                        
+        $data = $this::consult("https://api.covid19api.com/total/country/$country");
+                                
+        $index = array_search($country, array_column($countries, 'Slug'));
+        $iso2 = $countries[$index]->{'ISO2'};
 
-        return view('layouts.app', [
+        $countryInfo = $this::consult("https://restcountries.eu/rest/v2/alpha/$iso2");
+        if (count($data) > 0) {
+            $countryDataset = $this::getCountryDataset($data);
+            $currentConfirmed = end($countryDataset['weekConfirmedTotal']);
+            $currentDeaths = end($countryDataset['weekDeathsTotal']);
+        } else {
+            $countryDataset = null;
+            $currentConfirmed = null;
+            $currentDeaths = null;
+        }       
+                
+        return view('layouts.principal', [
             'title' => $title,
             'countries' => $countries,
             'countryInfo' => $countryInfo,
-            'countryDataset' => $countryDataset
+            'currentConfirmed' => $currentConfirmed,
+            'currentDeaths' => $currentDeaths,
+            'countryDataset' => $countryDataset            
         ]);
+
     }
 }

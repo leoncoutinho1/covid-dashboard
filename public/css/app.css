@@ -12,22 +12,27 @@ body {
 }
 
 content {
+    width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    position: relative;
 }
 
-#aside {
-    margin: 0;
-    display: block;
-    width: 450px;
-    text-align: center;
-    padding: 5px;
+.aside {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 360px;
+    position: absolute;
+    padding: 15px;
 }
 
-#dashboard {
-    margin: 0;
-    display: block;
-    width: 450px;
-    text-align: center;
-    padding: 5px;
+.dashboard {
+    position: absolute;
+    margin-left: 360px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 15px;
 }

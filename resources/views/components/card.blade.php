@@ -4,5 +4,5 @@
     </div>
     <div class='card__content'>
         {{ $slot }}
-    </div>        
+    </div>
 </div>

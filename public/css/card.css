@@ -2,10 +2,15 @@
     padding: 0;
     border: 2px solid rgb(65, 65, 105);
     border-radius: 5px;
+    width: 350px;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    clear: both;
 }
 
 .card__header {
-    font-size: 1.2rem;
+    font-size: 1rem;
     background-color: rgb(65, 65, 105);
     color: white;
     text-align: center;
@@ -14,10 +19,13 @@
 .card__content {
     padding: 5px;
     background-color: rgb(207, 207, 207);
+    flex-grow: 1;
+}
+
+.card__content .info {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     text-align: left;
+    justify-content: space-between;
 }
 
 .card__content img {
