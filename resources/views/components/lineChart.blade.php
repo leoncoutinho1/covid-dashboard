@@ -3,7 +3,7 @@
     <script>
         var days = [];
         var datasets = [];
-        
+        var values = [];
         @foreach($chart['labels'] as $data)
             days.push('{{ $data }}');
         @endforeach

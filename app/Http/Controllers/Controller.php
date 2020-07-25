@@ -17,14 +17,12 @@ class Controller extends BaseController
         $this::middleware('auth');
     }
 
-    public function geraPdf($countryInfo, $countryDataset) {
+    public function geraPdf($countryInfo, $countryDataset, $dayOne) {
         
-        $name = 'relatCovid'.$countryInfo->name;
-        $pdf = PDF::loadview('layouts.pdf', [
-            'countryInfo' => $countryInfo,
-            'countryDataset' => $countryDataset
-        ]);
-        return $pdf->setPaper('a4')->stream($name);
+        $name = 'relatCovid'.$countryInfo->name.'.pdf';
+        $pdf = PDF::loadhtml('<h1>Teste</h1>');
+        
+        return $pdf->stream('download.pdf');
     }
 
     public function principal($country=null, $pdf=null) {
@@ -50,10 +48,11 @@ class Controller extends BaseController
             $countryDataset = null;
             $currentConfirmed = null;
             $currentDeaths = null;
+            $dayOne = null;
         }       
 
         if ($pdf == 'pdf') {
-            $this::geraPdf($countryInfo, $countryDataset);
+            $this::geraPdf($countryInfo, $countryDataset, $dayOne);
         } else {
             $charts = createlineChartsPirncipal($countryDataset);
             return view('layouts.principal', [
