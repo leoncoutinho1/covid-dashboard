@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding: 15px;
+    font-family: 'Roboto Slab', serif;
+}
+
+#flag {
+    width: 350px;
+}
+
+.chart { 
+   margin: 5px 0; 
+}
+
+#info {
+    display: grid;
+    grid-template-columns: 35% 50%;
+    grid-column-gap: 25px;
+}
+
+.column {
+    display: grid;
+    grid-row-gap: 10px;
+}
+
+#info div p {
+    margin: 5px 0;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 250px auto;
+}
+

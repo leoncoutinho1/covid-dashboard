@@ -15,7 +15,9 @@
             data: {
                 labels: labels,
                 datasets: [{
-                    data: values
+                    data: values,
+                    backgroundColor: ['#fa4b4b9a', '#8bd466a6'],
+                    borderColor: ['#fa4b4b', '#4eb92a']
                 }]
             },
             options: {}

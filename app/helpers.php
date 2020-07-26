@@ -21,8 +21,17 @@
         return json_decode($response);
     }
     
+    function formatadorDeMilhar($number) {
+        return number_format($number, 0, ',', '.');
+    }
+
     function convertDate($date) {
         $date = substr($date, 8, 2).'-'.substr($date, 5, 2);
+        return $date;
+    }
+
+    function convertDateWithYear($date) {
+        $date = substr($date, 8, 2).'-'.substr($date, 5, 2).'-'.substr($date, 0, 4);
         return $date;
     }
 
@@ -78,16 +87,16 @@
         return $countryDataset;
     }
 
-    function createlineChartsPirncipal($dataset) {
+    function createlineChartsPrincipal($dataset) {
         
-        $bgConfirmed = '#99FF66';
-        $confirmed = '#33CC00';
-        $bgActive = '#FFCC33';
-        $active = '#FFFF00';
-        $bgRecovered = '#99FFFF';
-        $recovered = '#3399FF';
-        $bgDeaths = '#FFAB91';
-        $deaths = '#D84315';
+        $bgConfirmed = '#8bd466a6';
+        $confirmed = '#4eb92a';
+        $bgActive = '#fdfd2d8c';
+        $active = '#fdfd2d';
+        $bgRecovered = '#409efc8e';
+        $recovered = '#409efc';
+        $bgDeaths = '#fa4b4b9a';
+        $deaths = '#fa4b4b';
 
         $charts = array();
 
@@ -101,6 +110,20 @@
                     'bgColor' => $bgConfirmed,
                     'color' => $confirmed,
                     'values' => $dataset['weekConfirmedDaily']
+                ]
+            ]
+        ]);
+
+        array_push($charts, [
+            'title' => 'Número de mortes / semana',
+            'id' => 'weekDeathsDaily',
+            'labels' => $dataset['weekDates'],
+            'dataset' => [
+                0 => [
+                    'label' => 'Número de mortes',
+                    'bgColor' => $bgDeaths,
+                    'color' => $deaths,
+                    'values' => $dataset['weekDeathsDaily']
                 ]
             ]
         ]);
@@ -120,36 +143,6 @@
         ]);
 
         array_push($charts, [
-            'title' => 'Total casos confirmados / mes',
-            'id' => 'monthConfirmed',
-            'labels' => $dataset['monthDates'],
-            'dataset' => [
-                0 => [
-                    'label' => 'Total de casos confirmados',
-                    'bgColor' => $bgConfirmed,
-                    'color' => $confirmed,
-                    'values' => $dataset['monthConfirmed']
-                ]
-            ]
-        ]);
-
-
-        //
-        array_push($charts, [
-            'title' => 'Número de mortes / semana',
-            'id' => 'weekDeathsDaily',
-            'labels' => $dataset['weekDates'],
-            'dataset' => [
-                0 => [
-                    'label' => 'Número de mortes',
-                    'bgColor' => $bgDeaths,
-                    'color' => $deaths,
-                    'values' => $dataset['weekDeathsDaily']
-                ]
-            ]
-        ]);
-
-        array_push($charts, [
             'title' => 'Total de mortes / semana',
             'id' => 'weekDeathsTotal',
             'labels' => $dataset['weekDates'],
@@ -164,6 +157,20 @@
         ]);
 
         array_push($charts, [
+            'title' => 'Total casos confirmados / mes',
+            'id' => 'monthConfirmed',
+            'labels' => $dataset['monthDates'],
+            'dataset' => [
+                0 => [
+                    'label' => 'Total de casos confirmados',
+                    'bgColor' => $bgConfirmed,
+                    'color' => $confirmed,
+                    'values' => $dataset['monthConfirmed']
+                ]
+            ]
+        ]);
+
+        array_push($charts, [
             'title' => 'Total de mortes / mes',
             'id' => 'monthDeaths',
             'labels' => $dataset['monthDates'],
@@ -171,6 +178,114 @@
                 0 => [
                     'label' => 'Total de mortes',
                     'bgColor' => $bgDeaths,
+                    'color' => $deaths,
+                    'values' => $dataset['monthDeaths']
+                ]
+            ]
+        ]);
+
+        return $charts;
+    }
+
+
+    function createlineChartsPdf($dataset) {
+        
+        $bgTransparent = 'transparent';
+        $bgConfirmed = '#8bd466a6';
+        $confirmed = '#4eb92a';
+        $bgActive = '#fdfd2d8c';
+        $active = '#fdfd2d';
+        $bgRecovered = '#409efc8e';
+        $recovered = '#409efc';
+        $bgDeaths = '#fa4b4b9a';
+        $deaths = '#fa4b4b';
+
+        $charts = array();
+
+        array_push($charts, [
+            'title' => 'Índices diários na semana',
+            'id' => 'ConsolidateWeekDaily',
+            'labels' => $dataset['weekDates'],
+            'dataset' => [
+                0 => [
+                    'label' => 'Novos casos confirmados',
+                    'bgColor' => $bgTransparent,
+                    'color' => $confirmed,
+                    'values' => $dataset['weekConfirmedDaily']
+                ],
+                1 => [
+                    'label' => 'Recuperados',
+                    'bgColor' => $bgTransparent,
+                    'color' => $recovered,
+                    'values' => $dataset['weekRecoveredDaily']
+                ],
+                2 => [
+                    'label' => 'Mortes',
+                    'bgColor' => $bgTransparent,
+                    'color' => $deaths,
+                    'values' => $dataset['weekDeathsDaily']
+                ]
+            ]
+        ]);
+
+        array_push($charts, [
+            'title' => 'Índices totais na semana',
+            'id' => 'ConsolidateWeekTotal',
+            'labels' => $dataset['weekDates'],
+            'dataset' => [
+                0 => [
+                    'label' => 'Novos casos confirmados',
+                    'bgColor' => $bgTransparent,
+                    'color' => $confirmed,
+                    'values' => $dataset['weekConfirmedTotal']
+                ],
+                1 => [
+                    'label' => 'Ativos',
+                    'bgColor' => $bgTransparent,
+                    'color' => $active,
+                    'values' => $dataset['weekActiveTotal']
+                ],
+                2 => [
+                    'label' => 'Recuperados',
+                    'bgColor' => $bgTransparent,
+                    'color' => $recovered,
+                    'values' => $dataset['weekRecoveredTotal']
+                ],
+                3 => [
+                    'label' => 'Mortes',
+                    'bgColor' => $bgTransparent,
+                    'color' => $deaths,
+                    'values' => $dataset['weekDeathsTotal']
+                ]
+            ]
+        ]);
+
+        array_push($charts, [
+            'title' => 'Índices mensais',
+            'id' => 'ConsolidateMonth',
+            'labels' => $dataset['monthDates'],
+            'dataset' => [
+                0 => [
+                    'label' => 'Novos casos confirmados',
+                    'bgColor' => $bgTransparent,
+                    'color' => $confirmed,
+                    'values' => $dataset['monthConfirmed']
+                ],
+                1 => [
+                    'label' => 'Ativos',
+                    'bgColor' => $bgTransparent,
+                    'color' => $active,
+                    'values' => $dataset['monthActive']
+                ],
+                2 => [
+                    'label' => 'Recuperados',
+                    'bgColor' => $bgTransparent,
+                    'color' => $recovered,
+                    'values' => $dataset['monthRecovered']
+                ],
+                3 => [
+                    'label' => 'Mortes',
+                    'bgColor' => $bgTransparent,
                     'color' => $deaths,
                     'values' => $dataset['monthDeaths']
                 ]

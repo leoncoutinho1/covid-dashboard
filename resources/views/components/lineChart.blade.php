@@ -3,11 +3,11 @@
     <script>
         var days = [];
         var datasets = [];
-        var values = [];
         @foreach($chart['labels'] as $data)
             days.push('{{ $data }}');
         @endforeach
         @foreach($chart['dataset'] as $dataset)
+            var values = [];
             @foreach($dataset['values'] as $data)
                 values.push('{{ $data }}');
             @endforeach

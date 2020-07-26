@@ -7,7 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
-use PDF;
+
 
 class Controller extends BaseController
 {
@@ -17,54 +17,20 @@ class Controller extends BaseController
         $this::middleware('auth');
     }
 
-    public function geraPdf($countryInfo, $countryDataset, $dayOne) {
-        
-        $name = 'relatCovid'.$countryInfo->name.'.pdf';
-        $pdf = PDF::loadhtml('<h1>Teste</h1>');
-        
-        return $pdf->stream('download.pdf');
-    }
-
-    public function principal($country=null, $pdf=null) {
+    public function principal($country=null) {
         $title = 'Painel COVID-19';
-        $countries = consultApi("https://api.covid19api.com/countries");
-        
-        if(!isset($country)) {
-            $country = 'brazil';
-        }
-                        
-        $data = consultApi("https://api.covid19api.com/total/country/$country");
-                                
-        $index = array_search($country, array_column($countries, 'Slug'));
-        $iso2 = $countries[$index]->{'ISO2'};
+        $data = consultCountry($country); 
 
-        $countryInfo = consultApi("https://restcountries.eu/rest/v2/alpha/$iso2");
-        if (count($data) > 0) {
-            $countryDataset = getCountryDataset($data);
-            $currentConfirmed = end($countryDataset['weekConfirmedTotal']);
-            $currentDeaths = end($countryDataset['weekDeathsTotal']);
-            $dayOne = $countryDataset['dayOne'];
-        } else {
-            $countryDataset = null;
-            $currentConfirmed = null;
-            $currentDeaths = null;
-            $dayOne = null;
-        }       
-
-        if ($pdf == 'pdf') {
-            $this::geraPdf($countryInfo, $countryDataset, $dayOne);
-        } else {
-            $charts = createlineChartsPirncipal($countryDataset);
-            return view('layouts.principal', [
-                'title' => $title,
-                'countries' => $countries,
-                'countryInfo' => $countryInfo,
-                'currentConfirmed' => $currentConfirmed,
-                'currentDeaths' => $currentDeaths,
-                'dayOne' => $dayOne,
-                'charts' => $charts
-            ]);
-        }               
+        $charts = createlineChartsPrincipal($data['countryDataset']);
+        return view('layouts.principal', [
+            'title' => $title,
+            'charts' => $charts,
+            'countryInfo' => $data['countryInfo'],
+            'currentConfirmed' => $data['currentConfirmed'],
+            'currentDeaths' => $data['currentDeaths'],
+            'dayOne' => $data['dayOne'],
+            'countries' => $data['countries']            
+        ]);             
     }
 }
 
