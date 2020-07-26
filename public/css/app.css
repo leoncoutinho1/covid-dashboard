@@ -11,7 +11,8 @@ body {
 }
 
 #content {
-    width: 100%;
+    margin: 0 auto;
+    width: 85%;
     display: grid;
     grid-template-columns: auto 1fr;
     
