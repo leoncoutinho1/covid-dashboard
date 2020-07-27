@@ -6,6 +6,8 @@
         var values = [];
         var backgroundColor = [];
         var borderColor = [];
+        var beginDate = '{{$beginDate}}';
+        var endDate = '{{$endDate}}';
         
         @foreach($dates as $date)
             dates.push('{{ $date }}');
@@ -14,13 +16,24 @@
             values.push({{ $value }});
         @endforeach
 
+        if (beginDate == '') {
+            beginDate = dates[0];
+        }
+
+        if (endDate == '') {
+            endDate = dates[date.length - 1]
+        }
+        
         for(var i = 0; i < dates.length; i++) {
-            data.push({
-                x: dates[i],
-                y: values[i]
-            });
-            backgroundColor.push('rgb(0, 92, 184)');
-            borderColor.push('rgb(0, 92, 184)');
+        
+            if (beginDate <= dates[i] && dates[i] <= endDate) {
+                backgroundColor.push('rgb(0, 92, 184)');
+                borderColor.push('rgb(0, 92, 184)');
+            } else {
+                console.log(beginDate, dates[i], endDate, values[i]);
+                dates.splice(i, 1);
+                values.splice(i, 1);
+            }
         }
         
         var data = {

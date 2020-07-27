@@ -73,7 +73,7 @@
                 <input type="date" name="endDate" id="endDate" value='{{$endDate}}'>
                 <input type='hidden' id='country' value='{{$country}}'>
                 <div onclick="search()">Pesquisar</div>
-                                
+                                              
                 @component('components.card', [
                     'title' => 'Novos casos confirmados'
                     ])
@@ -83,6 +83,8 @@
                         'values' => $daily['confirmed'],
                         'text' => 'Novos casos confirmados',
                         'label' => 'Casos confirmados',
+                        'beginDate' => $beginDate,
+                        'endDate' => $endDate
                     ])
                     @endcomponent
                 @endcomponent
@@ -95,6 +97,8 @@
                         'values' => $daily['deaths'],
                         'text' => 'Mortes diárias',
                         'label' => 'Mortes',
+                        'beginDate' => $beginDate,
+                        'endDate' => $endDate
                     ])
                     @endcomponent
                 @endcomponent
