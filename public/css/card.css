@@ -16,9 +16,8 @@
 }
 
 .card__content {
-    padding: 5px;
+    padding: 12px 5px;
     background-color: rgb(207, 207, 207);
-    flex-grow: 1;
 }
 
 .card__content .info {

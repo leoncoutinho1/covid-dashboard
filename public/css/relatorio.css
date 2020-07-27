@@ -1,35 +1,7 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+.dashboard {
+    flex-direction: column;
 }
 
-body {
-    padding: 15px;
-    font-family: 'Roboto Slab', serif;
+.dashboard .card {
+    width: 700px;
 }
-
-#flag {
-    width: 350px;
-}
-
-.chart { 
-   margin: 5px 0; 
-}
-
-#info {
-    width: 85%;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 35% 60%;
-    grid-column-gap: 10px;
-}
-
-#info div p {
-    margin: 5px 0;
-}
-
-#flag {
-    border: 1px solid black;
-}
-

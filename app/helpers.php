@@ -87,6 +87,23 @@
         return $countryDataset;
     }
 
+    function getDailyInfo($data) {
+        $daily = [
+            'confirmed' => [],
+            'deaths' => [],
+            'date' => []
+        ];
+        
+        $total = count($data) - 1;
+        for($i = 0; $i < count($data) - 1; $i++) {
+            array_push($daily['confirmed'], ($data[$i + 1]->{'Confirmed'} - $data[$i]->{'Confirmed'}));
+            array_push($daily['deaths'], ($data[$i + 1]->{'Deaths'} - $data[$i]->{'Deaths'}));
+            $date = substr($data[$i]->{'Date'}, 0, 10);
+            array_push($daily['date'], $date);
+        }
+        return $daily;
+    }
+
     function createlineChartsPrincipal($dataset) {
         
         $bgConfirmed = '#8bd466a6';
@@ -188,7 +205,7 @@
     }
 
 
-    function createlineChartsPdf($dataset) {
+    function createlineChartsConsolidated($dataset) {
         
         $bgTransparent = 'transparent';
         $bgConfirmed = '#8bd466a6';
@@ -202,7 +219,7 @@
 
         $charts = array();
 
-        array_push($charts, [
+        /* array_push($charts, [
             'title' => 'Índices diários na semana',
             'id' => 'ConsolidateWeekDaily',
             'labels' => $dataset['weekDates'],
@@ -226,7 +243,7 @@
                     'values' => $dataset['weekDeathsDaily']
                 ]
             ]
-        ]);
+        ]); */
 
         array_push($charts, [
             'title' => 'Índices totais na semana',
@@ -234,7 +251,7 @@
             'labels' => $dataset['weekDates'],
             'dataset' => [
                 0 => [
-                    'label' => 'Novos casos confirmados',
+                    'label' => 'Total de casos confirmados',
                     'bgColor' => $bgTransparent,
                     'color' => $confirmed,
                     'values' => $dataset['weekConfirmedTotal']
@@ -266,7 +283,7 @@
             'labels' => $dataset['monthDates'],
             'dataset' => [
                 0 => [
-                    'label' => 'Novos casos confirmados',
+                    'label' => 'Total de casos confirmados',
                     'bgColor' => $bgTransparent,
                     'color' => $confirmed,
                     'values' => $dataset['monthConfirmed']

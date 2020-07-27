@@ -23,6 +23,7 @@
     <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
     <link href="{{ asset('css/card.css') }}" rel="stylesheet">
     <link href="{{ asset('css/option.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/relatorio.css') }}" rel="stylesheet">
 </head>
 <body>
     @component('layouts.header')
@@ -67,34 +68,42 @@
         </div>
         <div class="dashboard">
             @if(isset($dayOne))
-                @foreach($charts as $chart)
-                    @component('components.card', [
-                        'title' => $chart['title']
-                        ])
-                        @component('components.lineChart', [
-                            'chart' => $chart
-                        ])
-                        @endcomponent
+                
+                <input type="date" name="beginDate" id="beginDate" value='{{$beginDate}}'>     
+                <input type="date" name="endDate" id="endDate" value='{{$endDate}}'>
+                <input type='hidden' id='country' value='{{$country}}'>
+                <div onclick="search()">Pesquisar</div>
+                                
+                @component('components.card', [
+                    'title' => 'Novos casos confirmados'
+                    ])
+                    @component('components.barChart', [
+                        'id' => 'confirmed',
+                        'dates' => $daily['date'],
+                        'values' => $daily['confirmed'],
+                        'text' => 'Novos casos confirmados',
+                        'label' => 'Casos confirmados',
+                    ])
                     @endcomponent
-                @endforeach
+                @endcomponent
+                @component('components.card', [
+                    'title' => 'Mortes diárias'
+                    ])
+                    @component('components.barChart', [
+                        'id' => 'deaths',
+                        'dates' => $daily['date'],
+                        'values' => $daily['deaths'],
+                        'text' => 'Mortes diárias',
+                        'label' => 'Mortes',
+                    ])
+                    @endcomponent
+                @endcomponent
             @else
                 <div id='noDataMessage'>
                     <p>A base não possui dados deste país referentes à COVID19.</p>
                 </div>
             @endif
         </div>
-    </div>
-    <div id='consolidate'>
-        @foreach($consolidatedCharts as $chart)
-            @component('components.card', [
-                'title' => $chart['title']
-                ])
-                @component('components.lineChart', [
-                    'chart' => $chart
-                ])
-                @endcomponent
-            @endcomponent
-        @endforeach
     </div>
     @component('layouts.footer')
     @endcomponent

@@ -1,0 +1,26 @@
+#footer {
+    padding: 20px;
+    background-color: rgb(51, 51, 51);
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+}
+
+#footer__title {
+    margin-left: 20px;
+    width: 300px;
+    font-size: 0.8rem;
+}
+
+#footer__links {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#footer_links a {
+    background-color: white;
+    width: 4px;
+}

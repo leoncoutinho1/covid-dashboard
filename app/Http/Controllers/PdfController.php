@@ -13,9 +13,22 @@ class PdfController extends Controller
 
     public function index($country) {
         $data = consultCountry($country); 
-        $charts = createlineChartsPdf($data['countryDataset']);
+        $tables = createlineChartsPrincipal($data['countryDataset']);
 
-        /* $pdf = PDF::loadView('layouts.pdf', [
+        $pdf = PDF::loadView('layouts.pdf', [
+            'title' => 'Relatório',
+            'countryInfo' => $data['countryInfo'],
+            'currentConfirmed' => $data['currentConfirmed'],
+            'currentRecovered' => $data['currentRecovered'],
+            'currentDeaths' => $data['currentDeaths'],
+            'dayOne' => $data['dayOne'],
+            'countries' => $data['countries']
+        ]);
+        $pdfName = 'Relatório - ' . $data['countryInfo']->{"name"} . '.pdf';
+
+        return $pdf->stream($pdfName);
+
+        /* return view('layouts.pdf', [
             'title' => 'Relatório',
             'charts' => $charts,
             'countryInfo' => $data['countryInfo'],
@@ -23,21 +36,6 @@ class PdfController extends Controller
             'currentDeaths' => $data['currentDeaths'],
             'dayOne' => $data['dayOne'],
             'countries' => $data['countries'] 
-        ]);
-
-        $pdf->setOption('enable-javascript', true);
-        $pdf->setOption('javascript-delay', 5000);
-
-        return $pdf->download('teste.pdf'); */
-
-        return view('layouts.pdf', [
-            'title' => 'Relatório',
-            'charts' => $charts,
-            'countryInfo' => $data['countryInfo'],
-            'currentConfirmed' => $data['currentConfirmed'],
-            'currentDeaths' => $data['currentDeaths'],
-            'dayOne' => $data['dayOne'],
-            'countries' => $data['countries'] 
-        ]);
+        ]); */
     }
 }

@@ -22,9 +22,11 @@ class Controller extends BaseController
         $data = consultCountry($country); 
 
         $charts = createlineChartsPrincipal($data['countryDataset']);
+        $consolidatedCharts = createlineChartsConsolidated($data['countryDataset']);
         return view('layouts.principal', [
             'title' => $title,
             'charts' => $charts,
+            'consolidatedCharts' => $consolidatedCharts,
             'countryInfo' => $data['countryInfo'],
             'currentConfirmed' => $data['currentConfirmed'],
             'currentDeaths' => $data['currentDeaths'],
