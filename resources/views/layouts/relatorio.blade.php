@@ -26,12 +26,15 @@
     <link href="{{ asset('css/relatorio.css') }}" rel="stylesheet">
 </head>
 <body>
-    @component('layouts.header')
+    @component('layouts.header', [
+        'country' => $country
+    ])
     @endcomponent
     <div id='content'>
         <div class="aside">
             @component('components.option', [
-                    'countries' => $countries
+                    'countries' => $countries,
+                    'page' => 'report'
                 ])
             @endcomponent
             @component('components.card', [
@@ -64,16 +67,19 @@
                     ])
                     @endcomponent
                 @endcomponent
+                @component('components.card', [
+                    'title' => 'Selecionar datas'
+                    ])
+                    <input type="date" name="beginDate" id="beginDate" value='{{$beginDate}}' min={{reset($daily['date'])}} max={{end($daily['date'])}}>     
+                    <input type="date" name="endDate" id="endDate" value='{{$endDate}}' min={{reset($daily['date'])}} max={{end($daily['date'])}}>
+                    <input type='hidden' id='country' value='{{$country}}'>
+                    <div id="btnSearch" onclick="search()">Pesquisar</div>
+                @endcomponent
             @endif
         </div>
         <div class="dashboard">
             @if(isset($dayOne))
-                
-                <input type="date" name="beginDate" id="beginDate" value='{{$beginDate}}'>     
-                <input type="date" name="endDate" id="endDate" value='{{$endDate}}'>
-                <input type='hidden' id='country' value='{{$country}}'>
-                <div onclick="search()">Pesquisar</div>
-                                              
+                                                             
                 @component('components.card', [
                     'title' => 'Novos casos confirmados'
                     ])

@@ -4,6 +4,7 @@
         var data = [];
         var dates = [];
         var values = [];
+        var labels = [];
         var backgroundColor = [];
         var borderColor = [];
         var beginDate = '{{$beginDate}}';
@@ -15,33 +16,40 @@
         @foreach($values as $value)
             values.push({{ $value }});
         @endforeach
-
-        if (beginDate == '') {
+        
+        if (!beginDate) {
             beginDate = dates[0];
         }
 
-        if (endDate == '') {
-            endDate = dates[date.length - 1]
+        if (!endDate) {
+            endDate = dates[dates.length - 1]
         }
+
+        if(beginDate > endDate) {
+            var aux = beginDate;
+            beginDate = endDate;
+            endDate = aux;
+        }
+        
         
         for(var i = 0; i < dates.length; i++) {
-        
             if (beginDate <= dates[i] && dates[i] <= endDate) {
+                data.push({
+                    x: dates[i],
+                    y: values[i]
+                });
                 backgroundColor.push('rgb(0, 92, 184)');
                 borderColor.push('rgb(0, 92, 184)');
-            } else {
-                console.log(beginDate, dates[i], endDate, values[i]);
-                dates.splice(i, 1);
-                values.splice(i, 1);
+                labels.push(dates[i])
             }
         }
-        
+                        
         var data = {
-            labels: dates,
+            labels: labels,
             datasets: [
             {
                 label: '{{ $label }}',
-                data: values,
+                data: data,
                 borderWidth: 1
             },
             ]
@@ -53,7 +61,7 @@
             title: {
             display: true,
             position: "top",
-            text: '{{ $text }}',
+            //text: '{{ $text }}',
             fontSize: 18,
             fontColor: "#111"
             },

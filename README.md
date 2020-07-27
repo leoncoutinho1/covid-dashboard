@@ -1,7 +1,5 @@
 ## Painel de estatísticas do COVID19
 
-<img src='' />
-
 Tecnologias utilizadas:
 - Laravel
 - Sqlite
@@ -40,19 +38,19 @@ Abaixo descrevo os passos necessários para baixar e configurar o projeto:
 
 ### Utilizando a aplicação
 
-Após registrar a aplicação redireciona para tela principal onde podem ser visualizados os dados do país selecionado:
+Após se registrar, a aplicação redireciona para tela principal onde podem ser visualizados os dados do país selecionado:
 
-<img src='' />
+<img src='/public/img/geral.png'/>
 
 Para selecionar outro país basta utilizar o select option conforme na figura abaixo:
 
-<img src='' />
+<img src='/public/img/option.png'/>
 
-A aplicação apresenta os gráficos sobre os dados do COVID19 para cada país dos últimos 7 dias e dos últimos 7 meses.
+Para extrair relatório passando a data desejada pode ser acessado o menu Relatório.
 
-<img src='' />
+<img src='/public/img/relatorio.png' />
 
-É possível consultar tamb
+No menu dados são exibidas algumas informações do país selecionado no formato PDF.
 
 
 ## Author

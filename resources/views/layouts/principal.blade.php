@@ -25,12 +25,15 @@
     <link href="{{ asset('css/option.css') }}" rel="stylesheet">
 </head>
 <body>
-    @component('layouts.header')
+    @component('layouts.header', [
+        'country' => $country
+    ])
     @endcomponent
     <div id='content'>
         <div class="aside">
             @component('components.option', [
-                    'countries' => $countries
+                    'countries' => $countries,
+                    'page' => 'country'
                 ])
             @endcomponent
             @component('components.card', [
@@ -84,18 +87,20 @@
             @endif
         </div>
     </div>
-    <div id='consolidate'>
-        @foreach($consolidatedCharts as $chart)
-            @component('components.card', [
-                'title' => $chart['title']
-                ])
-                @component('components.lineChart', [
-                    'chart' => $chart
-                ])
+    @if(isset($dayOne))
+        <div id='consolidate'>
+            @foreach($consolidatedCharts as $chart)
+                @component('components.card', [
+                    'title' => $chart['title']
+                    ])
+                    @component('components.lineChart', [
+                        'chart' => $chart
+                    ])
+                    @endcomponent
                 @endcomponent
-            @endcomponent
-        @endforeach
-    </div>
+            @endforeach
+        </div>
+    @endif
     @component('layouts.footer')
     @endcomponent
 </body>

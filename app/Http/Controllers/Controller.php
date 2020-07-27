@@ -31,8 +31,9 @@ class Controller extends BaseController
             'currentConfirmed' => $data['currentConfirmed'],
             'currentDeaths' => $data['currentDeaths'],
             'dayOne' => $data['dayOne'],
-            'countries' => $data['countries']            
-        ]);             
+            'countries' => $data['countries'],
+            'country' => $data['country']            
+        ]);
     }
 }
 

@@ -10,7 +10,7 @@
         <option value="">--Selecione um país--</option>
         @foreach ($countries as $c)
             <option 
-                value="country/{{ $c->{'Slug'} }}"
+                value="{{ $page }}/{{ $c->{'Slug'} }}"
             >
                 {{ $c->{'ISO2'} }} - {{ $c->{'Country'} }}
             </option>

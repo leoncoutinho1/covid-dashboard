@@ -1,7 +1,7 @@
 <?php
 
     function consultCountry($country) {
-        $expiration = 720; //minutos
+        $expiration = 240; //minutos
 
         $countries = Cache::remember('countries', $expiration, function() {
             return consultApi("https://api.covid19api.com/countries");
@@ -31,6 +31,7 @@
         } else {
             $countryDataset = null;
             $currentConfirmed = null;
+            $currentRecovered = null;
             $currentDeaths = null;
             $dayOne = null;
         }
