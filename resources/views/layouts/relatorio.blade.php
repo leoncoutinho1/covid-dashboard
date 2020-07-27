@@ -77,7 +77,7 @@
                 @endcomponent
             @endif
         </div>
-        <div class="dashboard">
+        <div class="relatorio__dashboard">
             @if(isset($dayOne))
                                                              
                 @component('components.card', [

@@ -1,5 +1,11 @@
-.dashboard .card {
-    width: 700px;
+.relatorio__dashboard {
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+.relatorio__dashboard .card {
+    width: 850px;
 }
 
 #btnSearch {
