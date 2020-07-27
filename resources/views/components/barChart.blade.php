@@ -38,8 +38,8 @@
                     x: dates[i],
                     y: values[i]
                 });
-                backgroundColor.push('rgb(0, 92, 184)');
-                borderColor.push('rgb(0, 92, 184)');
+                backgroundColor.push('{{$backgroundColor}}');
+                borderColor.push('{{$borderColor}}');
                 labels.push(dates[i])
             }
         }
@@ -50,7 +50,9 @@
             {
                 label: '{{ $label }}',
                 data: data,
-                borderWidth: 1
+                borderWidth: 1,
+                backgroundColor: backgroundColor,
+                borderColor: borderColor,
             },
             ]
         };

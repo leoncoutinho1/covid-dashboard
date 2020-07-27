@@ -11,6 +11,7 @@
 }
 
 #btnSearch:hover {
+    cursor: pointer;
     transform: translateY(-2px);
     box-shadow: 1px 3px -2px black;
     background-color: rgb(50, 98, 255);

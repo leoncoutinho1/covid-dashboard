@@ -90,7 +90,9 @@
                         'text' => 'Novos casos confirmados',
                         'label' => 'Casos confirmados',
                         'beginDate' => $beginDate,
-                        'endDate' => $endDate
+                        'endDate' => $endDate,
+                        'backgroundColor' => 'rgba(139, 212, 102, 0.651)',
+                        'borderColor' => 'rgb(78, 185, 42)'
                     ])
                     @endcomponent
                 @endcomponent
@@ -104,7 +106,9 @@
                         'text' => 'Mortes diárias',
                         'label' => 'Mortes',
                         'beginDate' => $beginDate,
-                        'endDate' => $endDate
+                        'endDate' => $endDate,
+                        'backgroundColor' => 'rgba(250, 75, 75, 0.604)',
+                        'borderColor' => 'rgb(250, 75, 75)'
                     ])
                     @endcomponent
                 @endcomponent
