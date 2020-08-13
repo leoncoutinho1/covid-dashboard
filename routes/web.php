@@ -17,15 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', ['uses' => 'Controller@principal']);
+/* Route::get('/', function() {
+    return redirect('/brazil');
+}); */
+
+Route::get('/', ['uses' => 'CountryController@create']);
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/pdf/{country}', ['uses' => 'PdfController@index'])->where('country', '[A-Za-z-]+');
-
-Route::get('/country/{country?}', ['uses' => 'Controller@principal'])->where('country', '[A-Za-z-]+');
-
-Route::get('/report/{country?}/{beginDate?}/{endDate?}', ['uses' => 'RelatorioController@index'])->where('country', '[A-Za-z-]+')->where('beginDate', '[0-9-]+')->where('endDate', '[0-9-]+');
 
 /* Route::get('/', function () {
     return view('welcome');
