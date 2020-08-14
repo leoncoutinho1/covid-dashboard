@@ -4,7 +4,12 @@
     "description": "The Laravel Framework.",
     "keywords": [
         "framework",
-        "laravel"
+        "laravel",
+        "react",
+        "redux",
+        "redis",
+        "chartjs",
+        "sqlite"
     ],
     "license": "MIT",
     "require": {
