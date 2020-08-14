@@ -52,10 +52,22 @@
 #header__links a {
     text-decoration: none;
     color: white;
+    padding: 10px;
+    position : relative;
 }
 
 #header__links a:hover {
     color: rgb(170, 167, 167);
+}
+
+#header__links a.current::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: white;
 }
 
 #header__menu p, #header__menu form {
