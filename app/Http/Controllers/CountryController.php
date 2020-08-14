@@ -22,20 +22,27 @@ class CountryController extends Controller
     }
 
     public function create($code=null) {
+        $expiration = 480;
         
-        $countries = consultApi("https://api.covid19api.com/countries");
-                  
+        $countries = Cache::remember('countries', $expiration, function() {
+           return consultApi("https://api.covid19api.com/countries");
+        });            
+
         if(!isset($code)) {
             $code = 'brazil';
         }
-                        
-        $data = consultApi("https://api.covid19api.com/total/country/$code");
         
+        $data = Cache::remember($code, $expiration, function() use ($code) {
+            return consultApi("https://api.covid19api.com/total/country/$code");
+        });
+                
         $index = array_search($code, array_column($countries, 'Slug'));
         $iso2 = $countries[$index]->{'ISO2'};
         
-        $countryInfo = consultApi("https://restcountries.eu/rest/v2/alpha/$iso2");
-
+        $countryInfo = Cache::remember($iso2, $expiration, function() use ($iso2) {
+            return consultApi("https://restcountries.eu/rest/v2/alpha/$iso2");
+        });
+        
         return Inertia::render('Country', [
             'user' => Auth::user()->name,
             'csrf' => csrf_token(),

@@ -17,23 +17,5 @@ class Controller extends BaseController
         $this::middleware('auth');
     }
 
-    public function principal($country=null) {
-        $title = 'Painel COVID-19';
-        $data = consultCountry($country); 
-
-        $charts = createlineChartsPrincipal($data['countryDataset']);
-        $consolidatedCharts = createlineChartsConsolidated($data['countryDataset']);
-        return view('layouts.principal', [
-            'title' => $title,
-            'charts' => $charts,
-            'consolidatedCharts' => $consolidatedCharts,
-            'countryInfo' => $data['countryInfo'],
-            'currentConfirmed' => $data['currentConfirmed'],
-            'currentDeaths' => $data['currentDeaths'],
-            'dayOne' => $data['dayOne'],
-            'countries' => $data['countries'],
-            'country' => $data['country']            
-        ]);
-    }
 }
 
